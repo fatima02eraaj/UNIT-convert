@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<!-- saved from url=(0064)https://cdpn.io/Eraaj-Fatima/fullpage/zxvxyoP?nocache=true&view= -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  
+
+    <link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png">
+
+    <meta name="apple-mobile-web-app-title" content="CodePen">
+
+    <link rel="icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico">
+
+    <link rel="mask-icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-b4b4269c16397ad2f0f7a01bcdf513a1994f4c94b8af2f191c09eb0d601762b1.svg" color="#111">
+
+
+
+  
+    <script src="./stopExecutionOnTimeout-2c7831bb44f98c1391d6a4ffda0e1fd302503391ca806e7fcc7b9b87197aec26.js.download"></script>
+
+
+  <title>Untitled</title>
+
+    <link rel="canonical" href="https://codepen.io/Eraaj-Fatima/pen/zxvxyoP">
+  
+  
+  
+  
+<style>
+body {
+  font-family: "Inter", sans-serif;
+  background: linear-gradient(-45deg, #1e1e1e, #2b2b2b, #121212, #222);
+  background-size: 400% 400%;
+  animation: gradientBG 10s ease infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.converter-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 8px 32px 0 rgba(245, 197, 66, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #f5c542;
+  text-align: center;
+  width: 370px;
+}
+
+h2 {
+  font-size: 30px;
+  margin-bottom: 25px;
+  text-shadow: 0 0 10px rgba(245, 197, 66, 0.5);
+}
+
+input,
+select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 10px 0;
+  font-size: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #f5c542;
+  backdrop-filter: blur(8px);
+  outline: none;
+}
+
+button {
+  font-size: 16px;
+  font-weight: 600;
+  padding: 12px 28px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 40px;
+  background: linear-gradient(135deg, #f5c542, #ffde7d);
+  color: #111;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px #f5c542;
+}
+
+#swapBtn {
+  background: rgba(245, 197, 66, 0.2);
+  color: #f5c542;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  margin: 0 10px;
+  font-size: 20px;
+}
+
+.dropdowns {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+#result {
+  margin-top: 25px;
+  font-size: 22px;
+  color: #ffdd55;
+  text-shadow: 0 0 15px #f5c542;
+  animation: glow 1s infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 5px #f5c542;
+  }
+  to {
+    text-shadow: 0 0 20px #f5c542;
+  }
+}
+
+#history {
+  margin-top: 20px;
+  list-style: none;
+  padding: 0;
+  font-size: 14px;
+  color: #ccc;
+}
+</style>
+
+  <script>
+  window.console = window.console || function(t) {};
+</script>
+
+  
+  
+</head>
+
+<body translate="no">
+  <link href="./css2" rel="stylesheet">
+
+<div class="converter-card">
+  <h2> Unit Converter</h2>
+
+  <input type="number" id="inputValue" placeholder="Enter value">
+
+  <div class="dropdowns">
+    <select id="fromUnit">
+      <option value="km">Kilometers</option>
+      <option value="miles">Miles</option>
+      <option value="kg">Kilograms</option>
+      <option value="lbs">Pounds</option>
+      <option value="C">Celsius</option>
+      <option value="F">Fahrenheit</option>
+    </select>
+
+    <button id="swapBtn" onclick="swapUnits()">⇄</button>
+
+    <select id="toUnit">
+      <option value="miles">Miles</option>
+      <option value="km">Kilometers</option>
+      <option value="lbs">Pounds</option>
+      <option value="kg">Kilograms</option>
+      <option value="F">Fahrenheit</option>
+      <option value="C">Celsius</option>
+    </select>
+  </div>
+
+  <button onclick="convert()">Convert</button>
+
+  <h3 id="result">Result: 62.14 miles</h3>
+
+  <ul id="history"><li>1 km → 0.62 miles</li><li>10 km → 6.21 miles</li><li>100 km → 62.14 miles</li></ul>
+</div>
+  
+      <script id="rendered-js">
+function convert() {
+  const input = parseFloat(document.getElementById("inputValue").value);
+  const from = document.getElementById("fromUnit").value;
+  const to = document.getElementById("toUnit").value;
+  let result = 0;
+
+  if (isNaN(input)) {
+    document.getElementById("result").innerText = "❗ Please enter a valid number.";
+    return;
+  }
+
+  if (from === "km" && to === "miles") {
+    result = input * 0.621371;
+  } else if (from === "miles" && to === "km") {
+    result = input / 0.621371;
+  } else if (from === "kg" && to === "lbs") {
+    result = input * 2.20462;
+  } else if (from === "lbs" && to === "kg") {
+    result = input / 2.20462;
+  } else if (from === "C" && to === "F") {
+    result = input * 9 / 5 + 32;
+  } else if (from === "F" && to === "C") {
+    result = (input - 32) * 5 / 9;
+  } else if (from === to) {
+    result = input;
+  } else {
+    document.getElementById("result").innerText = "❌ Conversion not supported!";
+    return;
+  }
+
+  document.getElementById("result").innerText = `Result: ${result.toFixed(2)} ${to}`;
+
+  // Add to history
+  document.getElementById("history").innerHTML += `<li>${input} ${from} → ${result.toFixed(2)} ${to}</li>`;
+}
+
+// Swap values between selects
+function swapUnits() {
+  const from = document.getElementById("fromUnit");
+  const to = document.getElementById("toUnit");
+  const temp = from.value;
+  from.value = to.value;
+  to.value = temp;
+  convert();
+}
+
+// Dynamic placeholder
+document.getElementById("fromUnit").addEventListener("change", () => {
+  const unit = document.getElementById("fromUnit").value;
+  document.getElementById("inputValue").placeholder = `Enter value in ${unit}`;
+});
+
+// Optional: auto convert
+document.getElementById("inputValue").addEventListener("input", convert);
+document.getElementById("fromUnit").addEventListener("change", convert);
+document.getElementById("toUnit").addEventListener("change", convert);
+//# sourceURL=pen.js
+    </script>
+
+  
+
+
+
+</body></html>
